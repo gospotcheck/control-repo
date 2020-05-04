@@ -7,12 +7,12 @@ define mounted_disk (
     ensure => present,
   }
 
-  volume_group { "/dev/disks/by-id/${disk_id}":
+  volume_group { "${disk_id}":
     ensure           => present,
     physical_volumes => "/dev/disks/by-id/${disk_id}",
   }
 
-  logical_volume { "/dev/disks/by-id/${disk_id}":
+  logical_volume { "${disk_id}":
     ensure       => present,
     volume_group => $disk_name,
     size         => $disk_size,
