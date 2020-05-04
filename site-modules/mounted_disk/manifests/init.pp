@@ -3,7 +3,6 @@
 define mounted_disk (
   $disk_id = '',
   $disk_name = '',
-  $disk_size = ''
 ){
   physical_volume { "/dev/disk/by-id/${disk_id}":
     ensure => present,
@@ -18,7 +17,7 @@ define mounted_disk (
   logical_volume { $disk_id:
     ensure       => present,
     volume_group => $disk_id,
-    size         => $disk_size,
+    size         => undef,
   }
 
   filesystem { "/dev/disk/by-id/${disk_id}":
