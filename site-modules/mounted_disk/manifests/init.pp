@@ -3,28 +3,28 @@ define mounted_disk (
   $disk_name = '',
   $disk_size = ''
 ){
-  physical_volume { "/dev/disks/by-id/${disk_id}":
+  physical_volume { "/dev/disk/by-id/${disk_id}":
     ensure => present,
   }
 
-  volume_group { "${disk_id}":
+  volume_group { $disk_id:
     ensure           => present,
-    physical_volumes => "/dev/disks/by-id/${disk_id}",
+    physical_volumes => "/dev/disk/by-id/${disk_id}",
   }
 
-  logical_volume { "${disk_id}":
+  logical_volume { $disk_id:
     ensure       => present,
     volume_group => $disk_name,
     size         => $disk_size,
   }
 
-  filesystem { "/dev/disks/by-id/${disk_id}":
+  filesystem { "/dev/disk/by-id/${disk_id}":
     ensure  => present,
     fs_type => 'ext4',
     options => '-m 0 -F -E lazy_itable_init=0,lazy_journal_init=0,discard',
   }
 
-  mount {"/mnt/disks/${disk_name}":
+  mount {"/mnt/disk/${disk_name}":
     ensure => 'mounted',
     device => "/dev/disks/by-id/${disk_id}",
     fstype => 'ext4',
