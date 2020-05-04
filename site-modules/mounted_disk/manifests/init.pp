@@ -26,7 +26,7 @@ define mounted_disk (
 
   mount {"/mnt/disk/${disk_name}":
     ensure => 'mounted',
-    device => "/dev/disks/by-id/${disk_id}",
+    device => "/dev/disk/by-id/${disk_id}",
     fstype => 'ext4',
   }
 }
