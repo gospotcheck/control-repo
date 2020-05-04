@@ -1,3 +1,5 @@
+# Formats and mounts a disk by id and size
+# and mounts with with the given name.
 define mounted_disk (
   $disk_id = '',
   $disk_name = '',
@@ -14,7 +16,7 @@ define mounted_disk (
 
   logical_volume { $disk_id:
     ensure       => present,
-    volume_group => $disk_name,
+    volume_group => $disk_id,
     size         => $disk_size,
   }
 
