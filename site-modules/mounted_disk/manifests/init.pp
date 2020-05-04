@@ -17,7 +17,6 @@ define mounted_disk (
   logical_volume { $disk_id:
     ensure       => present,
     volume_group => $disk_id,
-    size         => undef,
   }
 
   filesystem { "/dev/disk/by-id/${disk_id}":
@@ -26,7 +25,7 @@ define mounted_disk (
     options => '-m 0 -F -E lazy_itable_init=0,lazy_journal_init=0,discard',
   }
 
-  mount {"/mnt/disks/${disk_name}":
+  mount {"/mnt/${disk_name}":
     ensure => 'mounted',
     device => "/dev/disk/by-id/${disk_id}",
     fstype => 'ext4',
