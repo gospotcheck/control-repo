@@ -7,6 +7,7 @@ define mounted_disk (
 ){
   physical_volume { "/dev/disk/by-id/${disk_id}":
     ensure => present,
+    force  => true,
   }
 
   volume_group { $disk_id:
@@ -26,7 +27,7 @@ define mounted_disk (
     options => '-m 0 -F -E lazy_itable_init=0,lazy_journal_init=0,discard',
   }
 
-  mount {"/mnt/disk/${disk_name}":
+  mount {"/mnt/disks/${disk_name}":
     ensure => 'mounted',
     device => "/dev/disk/by-id/${disk_id}",
     fstype => 'ext4',
