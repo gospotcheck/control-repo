@@ -6,7 +6,6 @@ define mounted_disk (
 ){
   physical_volume { "/dev/disk/by-id/${disk_id}":
     ensure => present,
-    force  => true,
   }
 
   volume_group { $disk_id:
